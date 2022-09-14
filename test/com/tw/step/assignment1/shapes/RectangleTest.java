@@ -28,7 +28,7 @@ class RectangleTest {
     Rectangle square = Rectangle.createSquare(2);
     Rectangle rectangleWithSameSides = Rectangle.createRectangle(2, 2);
 
-    assertTrue(square.equals(rectangleWithSameSides));
+    assertEquals(square, rectangleWithSameSides);
   }
 
   @Test
@@ -36,6 +36,6 @@ class RectangleTest {
     Rectangle rectangle = Rectangle.createRectangle(2, 4);
     Rectangle sameRectangle = new Rectangle(2, 4);
 
-    assertTrue(rectangle.equals(sameRectangle));
+    assertEquals(rectangle, sameRectangle);
   }
 }

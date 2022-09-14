@@ -16,8 +16,36 @@ public class Chance {
     return new Chance(probability);
   }
 
-  public Chance complement() throws InvalidProbabilityException {
-    return createChance(1 - probability);
+  public Chance complement() {
+    return new Chance(1 - probability);
+  }
+
+  public Chance and(Chance chance) {
+    return new Chance(this.probability * chance.probability);
+  }
+
+  public Chance or(Chance chance) {
+    Chance andOfChance = and(chance);
+
+    double sumOfProbabilities = this.probability + chance.probability;
+    return new Chance(sumOfProbabilities - andOfChance.probability);
+  }
+
+  public boolean isWithin(Chance chance, double delta) {
+    double lowerBound = this.probability - delta;
+    double upperBound = this.probability + delta;
+    return isInRange(lowerBound, upperBound, chance.probability);
+  }
+
+  private static boolean isInRange(double lowerBound, double upperbound, double number) {
+    return lowerBound <= number && upperbound >= number;
+  }
+
+  @Override
+  public String toString() {
+    return "Chance{" +
+        "probability=" + probability +
+        '}';
   }
 
   @Override
@@ -27,22 +55,12 @@ public class Chance {
 
     Chance chance = (Chance) o;
 
-    return Double.compare(chance.probability, probability) == 0;
+    return isWithin(chance, 0.005);
   }
 
   @Override
   public int hashCode() {
     long temp = Double.doubleToLongBits(probability);
     return (int) (temp ^ (temp >>> 32));
-  }
-
-  public Chance and(Chance chance) {
-    return new Chance(this.probability * chance.probability);
-  }
-
-  public Chance or(Chance chance) {
-    Chance andOfChance =  and(chance);
-
-    return new Chance(1- andOfChance.probability);
   }
 }

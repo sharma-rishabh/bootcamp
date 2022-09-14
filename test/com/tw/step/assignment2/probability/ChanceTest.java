@@ -11,7 +11,7 @@ class ChanceTest {
   void shouldTellComplementOfChance() throws InvalidProbabilityException {
     Chance chance = Chance.createChance(0.75);
 
-    assertTrue(chance.complement().equals(Chance.createChance(0.25)));
+    assertEquals(chance.complement(), Chance.createChance(0.25));
   }
 
   @Test
@@ -28,14 +28,33 @@ class ChanceTest {
   void shouldPerformAndOnGivenChance() throws InvalidProbabilityException {
     Chance tailChance = Chance.createChance(0.5);
 
-    assertTrue(tailChance.and(tailChance).equals(Chance.createChance(0.25)));
+    assertEquals(tailChance.and(tailChance), Chance.createChance(0.25));
   }
 
   @Test
   void shouldPerformOrOnGivenChance() throws InvalidProbabilityException {
-    Chance tailChance = Chance.createChance(0.5);
+    Chance chanceOfGettingOne = Chance.createChance(1 / 6.0);
+    Chance chanceOfGettingTwo = Chance.createChance(1 / 6.0);
 
-    assertTrue(tailChance.or(tailChance).equals(Chance.createChance(0.75)));
+    assertEquals(chanceOfGettingOne.or(chanceOfGettingTwo), Chance.createChance(0.305));
+  }
+
+  @Test
+  void shouldCreateValidInstanceOfChance() throws InvalidProbabilityException {
+    Chance firstChance = Chance.createChance(0.5);
+    Chance secondChance = Chance.createChance(0.5);
+
+    assertEquals(firstChance, secondChance);
+  }
+
+  @Test
+  void shouldTellGivenChanceIsWithinGivenDelta() throws InvalidProbabilityException {
+    Chance chance1 = Chance.createChance(0.5);
+    Chance chance2 = Chance.createChance(0.508);
+
+    assertTrue(chance2.isWithin(chance1,0.05));
+    assertFalse(chance2.isWithin(chance1,0.005));
+
   }
 }
 
