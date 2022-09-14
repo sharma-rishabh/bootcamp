@@ -23,4 +23,19 @@ class RectangleTest {
     assertEquals(16.8, rectangle2.perimeter());
   }
 
+  @Test
+  void shouldCreateSquareOfGivenSize() {
+    Rectangle square = Rectangle.createSquare(2);
+    Rectangle rectangleWithSameSides = Rectangle.createRectangle(2, 2);
+
+    assertTrue(square.equals(rectangleWithSameSides));
+  }
+
+  @Test
+  void shouldCreateRectangleOfGivenSides() {
+    Rectangle rectangle = Rectangle.createRectangle(2, 4);
+    Rectangle sameRectangle = new Rectangle(2, 4);
+
+    assertTrue(rectangle.equals(sameRectangle));
+  }
 }
