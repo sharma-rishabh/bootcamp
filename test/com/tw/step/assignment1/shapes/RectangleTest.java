@@ -11,4 +11,22 @@ class RectangleTest {
     assertEquals(rectangle.area(),16);
   }
 
+  @Test
+  void shouldCalculateTheAreaOfARectangleWithUnequalSides() {
+    Rectangle rectangle = new Rectangle(4, 5);
+    assertEquals(rectangle.area(),20);
+  }
+
+  @Test
+  void  shouldCalculateThePerimeterOfaRectangle(){
+    Rectangle rectangle = new Rectangle(4, 4);
+    assertEquals(rectangle.perimeter(),16);
+  }
+
+  @Test
+  void  shouldCalculateThePerimeterOfaRectangleWithUnequalSides(){
+    Rectangle rectangle = new Rectangle(4, 5);
+    assertEquals(rectangle.perimeter(),18);
+  }
+
 }
