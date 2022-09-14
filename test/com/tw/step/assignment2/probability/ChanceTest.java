@@ -8,14 +8,8 @@ class ChanceTest {
 
   @Test
   void shouldTellProbabilityOfGettingFavourableOutcome() {
-    Chance chance = new Chance(2, 1);
-    assertEquals(chance.ofGetting(), 0.5);
-  }
-
-  @Test
-  void shouldTellProbabilityOfNotGettingFavourableOutcome() {
-    Chance chance = new Chance(4, 3);
-    assertEquals(chance.ofNotGetting(), 0.25);
+    Chance chance = new Chance(0.5);
+    assertEquals(chance.getProbability(), 0.5);
   }
 }
 
