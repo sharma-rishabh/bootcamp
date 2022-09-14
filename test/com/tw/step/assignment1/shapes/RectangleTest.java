@@ -29,4 +29,15 @@ class RectangleTest {
     assertEquals(rectangle.perimeter(),18);
   }
 
+  @Test
+  void shouldCalculateAreaForDecimalValues() {
+    Rectangle rectangle = new Rectangle(4.5, 5.5);
+    assertEquals(rectangle.area(),24.75);
+  }
+
+  @Test
+  void shouldCalculatePerimeterForDecimalValues() {
+    Rectangle rectangle = new Rectangle(4.5, 5.5);
+    assertEquals(rectangle.perimeter(),20);
+  }
 }
