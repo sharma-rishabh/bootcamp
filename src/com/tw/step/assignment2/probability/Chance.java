@@ -23,7 +23,7 @@ public class Chance {
     return (int) (temp ^ (temp >>> 32));
   }
 
-  public Chance getImprobability() {
+  public Chance getComplement() {
     return new Chance(1 - probability);
   }
 
