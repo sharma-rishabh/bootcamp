@@ -8,36 +8,36 @@ class RectangleTest {
   @Test
   void shouldCalculateTheAreaOfARectangle() {
     Rectangle rectangle = new Rectangle(4, 4);
-    assertEquals(rectangle.area(),16);
+    assertEquals(rectangle.area(), 16);
   }
 
   @Test
   void shouldCalculateTheAreaOfARectangleWithUnequalSides() {
     Rectangle rectangle = new Rectangle(4, 5);
-    assertEquals(rectangle.area(),20);
+    assertEquals(rectangle.area(), 20);
   }
 
   @Test
-  void  shouldCalculateThePerimeterOfaRectangle(){
+  void shouldCalculateThePerimeterOfaRectangle() {
     Rectangle rectangle = new Rectangle(4, 4);
-    assertEquals(rectangle.perimeter(),16);
+    assertEquals(rectangle.perimeter(), 16);
   }
 
   @Test
-  void  shouldCalculateThePerimeterOfaRectangleWithUnequalSides(){
+  void shouldCalculateThePerimeterOfaRectangleWithUnequalSides() {
     Rectangle rectangle = new Rectangle(4, 5);
-    assertEquals(rectangle.perimeter(),18);
+    assertEquals(rectangle.perimeter(), 18);
   }
 
   @Test
   void shouldCalculateAreaForDecimalValues() {
     Rectangle rectangle = new Rectangle(4.5, 5.5);
-    assertEquals(rectangle.area(),24.75);
+    assertEquals(rectangle.area(), 24.75);
   }
 
   @Test
   void shouldCalculatePerimeterForDecimalValues() {
     Rectangle rectangle = new Rectangle(4.5, 5.5);
-    assertEquals(rectangle.perimeter(),20);
+    assertEquals(rectangle.perimeter(), 20);
   }
 }
