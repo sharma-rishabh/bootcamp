@@ -7,8 +7,24 @@ public class Chance {
     this.probability = probability;
   }
 
-  public double getProbability() {
-    return probability;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Chance chance = (Chance) o;
+
+    return Double.compare(chance.probability, probability) == 0;
+  }
+
+  @Override
+  public int hashCode() {
+    long temp = Double.doubleToLongBits(probability);
+    return (int) (temp ^ (temp >>> 32));
+  }
+
+  public Chance getImprobability() {
+    return new Chance(1 - probability);
   }
 
 }
