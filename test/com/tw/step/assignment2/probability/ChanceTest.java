@@ -16,28 +16,26 @@ class ChanceTest {
 
   @Test
   void shouldThrowExceptionIfProbabilityIsGreaterThanOne() {
-    InvalidProbabilityException error = null;
-
-    try {
-      Chance.createChance(2);
-    } catch (InvalidProbabilityException e) {
-      error = e;
-    }
-
-    assertNotNull(error);
+    assertThrows(InvalidProbabilityException.class, () -> Chance.createChance(2));
   }
 
   @Test
   void shouldThrowExceptionIfProbabilityIsLessThanOne() {
-    InvalidProbabilityException error = null;
+    assertThrows(InvalidProbabilityException.class, () -> Chance.createChance(-1));
+  }
 
-    try {
-      Chance.createChance(-1);
-    } catch (InvalidProbabilityException e) {
-      error = e;
-    }
+  @Test
+  void shouldPerformAndOnGivenChance() throws InvalidProbabilityException {
+    Chance tailChance = Chance.createChance(0.5);
 
-    assertNotNull(error);
+    assertTrue(tailChance.and(tailChance).equals(Chance.createChance(0.25)));
+  }
+
+  @Test
+  void shouldPerformOrOnGivenChance() throws InvalidProbabilityException {
+    Chance tailChance = Chance.createChance(0.5);
+
+    assertTrue(tailChance.or(tailChance).equals(Chance.createChance(0.75)));
   }
 }
 

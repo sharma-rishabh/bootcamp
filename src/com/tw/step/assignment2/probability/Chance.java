@@ -35,4 +35,14 @@ public class Chance {
     long temp = Double.doubleToLongBits(probability);
     return (int) (temp ^ (temp >>> 32));
   }
+
+  public Chance and(Chance chance) {
+    return new Chance(this.probability * chance.probability);
+  }
+
+  public Chance or(Chance chance) {
+    Chance andOfChance =  and(chance);
+
+    return new Chance(1- andOfChance.probability);
+  }
 }
