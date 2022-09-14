@@ -9,12 +9,12 @@ class CoinTest {
   @Test
   void shouldTellChanceOfGettingATail() {
     Coin coin = new Coin();
-    assertEquals(0.5,coin.chanceOf(Face.TAIL));
+    assertEquals(0.5, coin.chanceOf(Face.TAIL));
   }
 
   @Test
   void shouldTellChanceOfNotGettingATail() {
     Coin coin = new Coin();
-    assertEquals(0.5,coin.chanceOfNot(Face.TAIL));
+    assertEquals(0.5, coin.chanceOfNot(Face.TAIL));
   }
 }
