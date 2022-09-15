@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UnitTest {
+class MassUnitTest {
 
   @Test
-  void shouldTellRatioOfKmAndMeter() {
-    assertEquals(12,Unit.FEET.ratio(Unit.INCH));
+  void shouldTellRatioOfGallonAndKG() {
+    assertEquals(3.78,MassUnit.GALLON.ratio(MassUnit.LITRE));
   }
 }

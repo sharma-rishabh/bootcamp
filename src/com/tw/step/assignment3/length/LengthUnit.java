@@ -1,6 +1,6 @@
 package com.tw.step.assignment3.length;
 
-public enum Unit {
+public enum LengthUnit {
   INCH(0.0000025),
   FEET(0.00003),
   CM(0.000001),
@@ -9,11 +9,11 @@ public enum Unit {
 
   private final double lengthInKm;
 
-  Unit(double lengthInKm) {
+  LengthUnit(double lengthInKm) {
     this.lengthInKm = lengthInKm;
   }
 
-  public double ratio(Unit anotherUnit) {
-    return this.lengthInKm/anotherUnit.lengthInKm;
+  public double ratio(LengthUnit anotherLengthUnit) {
+    return this.lengthInKm/ anotherLengthUnit.lengthInKm;
   }
 }
