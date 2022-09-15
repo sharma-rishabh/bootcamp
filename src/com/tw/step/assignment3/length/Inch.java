@@ -13,6 +13,15 @@ public class Inch {
     return  new Feet(this.quantity / 12);
   }
 
+  public int compare(Inch anotherInch) {
+    double difference = this.quantity - anotherInch.quantity;
+
+    if (difference == 0) return 0;
+    if (difference < 1) return -1;
+
+    return 1;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

@@ -12,6 +12,7 @@ public class Feet {
     return new Inch(this.quantity * 12);
   }
 
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -26,5 +27,14 @@ public class Feet {
   public int hashCode() {
     long temp = Double.doubleToLongBits(quantity);
     return (int) (temp ^ (temp >>> 32));
+  }
+
+  public int compare(Feet anotherFeet) {
+    double difference = this.quantity - anotherFeet.quantity;
+
+    if (difference == 0) return 0;
+    if (difference < 1) return -1;
+
+    return 1;
   }
 }

@@ -14,4 +14,15 @@ class FeetTest {
 
     assertTrue(expected.equals(feet.toInches()));
   }
+
+  @Test
+  void shouldBeAbleToCompareFeetWithAnotherFeet() {
+    Feet feet = new Feet(2);
+    Feet shorterFeet = new Feet(1);
+    Feet longerFeet = new Feet(3);
+
+    assertEquals(1,feet.compare(shorterFeet));
+    assertEquals(-1,feet.compare(longerFeet));
+    assertEquals(0,feet.compare(feet));
+  }
 }
