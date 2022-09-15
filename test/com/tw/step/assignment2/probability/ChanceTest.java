@@ -11,7 +11,7 @@ class ChanceTest {
   void shouldTellComplementOfChance() throws InvalidProbabilityException {
     Chance chance = Chance.createChance(0.75);
 
-    assertEquals(chance.complement(), Chance.createChance(0.25));
+    assertEquals(chance.not(), Chance.createChance(0.25));
   }
 
   @Test
@@ -54,7 +54,6 @@ class ChanceTest {
 
     assertTrue(chance2.isWithin(chance1, 0.05));
     assertFalse(chance2.isWithin(chance1, 0.005));
-
   }
 }
 

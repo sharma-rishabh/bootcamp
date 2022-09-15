@@ -19,7 +19,7 @@ public class Chance {
     return new Chance(chance);
   }
 
-  public Chance complement() throws InvalidProbabilityException {
+  public Chance not() throws InvalidProbabilityException {
     return Chance.createChance(CERTAINTY - chance);
   }
 
@@ -28,10 +28,7 @@ public class Chance {
   }
 
   public Chance or(Chance anotherChance) throws InvalidProbabilityException {
-    Chance andOfChance = this.and(anotherChance);
-    double sumOfProbabilities = this.chance + anotherChance.chance;
-
-    return Chance.createChance(sumOfProbabilities - andOfChance.chance);
+    return (this.not().and(anotherChance.not())).not();
   }
 
   public boolean isWithin(Chance anotherChance, double delta) {
