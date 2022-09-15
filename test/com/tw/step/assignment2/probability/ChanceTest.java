@@ -20,7 +20,7 @@ class ChanceTest {
   }
 
   @Test
-  void shouldThrowExceptionIfProbabilityIsLessThanOne() {
+  void shouldThrowExceptionIfProbabilityIsLessThanZero() {
     assertThrows(InvalidProbabilityException.class, () -> Chance.createChance(-1));
   }
 
@@ -36,7 +36,7 @@ class ChanceTest {
     Chance chanceOfGettingOne = Chance.createChance(1 / 6.0);
     Chance chanceOfGettingTwo = Chance.createChance(1 / 6.0);
 
-    assertEquals(chanceOfGettingOne.or(chanceOfGettingTwo), Chance.createChance(0.305));
+    assertTrue(chanceOfGettingOne.or(chanceOfGettingTwo).similar(Chance.createChance(0.305)));
   }
 
   @Test
@@ -52,8 +52,8 @@ class ChanceTest {
     Chance chance1 = Chance.createChance(0.5);
     Chance chance2 = Chance.createChance(0.508);
 
-    assertTrue(chance2.isWithin(chance1,0.05));
-    assertFalse(chance2.isWithin(chance1,0.005));
+    assertTrue(chance2.isWithin(chance1, 0.05));
+    assertFalse(chance2.isWithin(chance1, 0.005));
 
   }
 }
