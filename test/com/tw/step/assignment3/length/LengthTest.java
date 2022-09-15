@@ -37,6 +37,11 @@ class LengthTest {
     Length slightlyLargeCM = new Length(0.002, LengthUnit.CM);
 
     assertTrue(smallCM.isInRange(slightlyLargeCM,0.001));
+  }
 
+  @Test
+  void shouldAddOneInchWithAnother(){
+    Length oneInch = new Length(1, LengthUnit.INCH);
+    assertEquals(oneInch.add(oneInch), new Length(2, LengthUnit.INCH));
   }
 }
