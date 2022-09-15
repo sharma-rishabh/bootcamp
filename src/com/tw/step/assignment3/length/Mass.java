@@ -33,4 +33,12 @@ public class Mass {
     return Math.abs(this.quantity - anotherMass.quantity) <= delta;
   }
 
+  public Mass add(Mass anotherMass) {
+    Mass massInCurrentUnit = this.convert(anotherMass);
+
+    Mass aggregatedLength = new Mass(this.quantity + massInCurrentUnit.quantity, this.unit);
+    Mass litre = new Mass(1,MassUnit.LITRE);
+
+    return litre.convert(aggregatedLength);
+  }
 }

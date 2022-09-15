@@ -17,4 +17,35 @@ class MassTest {
     assertEquals(1,oneGallon.compare(oneLitre));
     assertEquals(-1,oneGallon.compare(fourLitres));
   }
+
+  @Test
+  void shouldAddTwoVolumesInLitreAndGiveInLitres() {
+    Mass oneLiter = new Mass(1, MassUnit.LITRE);
+
+    Mass actual = oneLiter.add(oneLiter);
+    Mass expected = new Mass(2,MassUnit.LITRE);
+
+    assertTrue(expected.isInRange(actual,0.01));
+  }
+
+  @Test
+  void shouldAddTwoVolumesInGallonsAndGiveInLitres() {
+    Mass oneGallon = new Mass(1,MassUnit.GALLON);
+
+    Mass actual = oneGallon.add(oneGallon);
+    Mass expected = new Mass(7.56, MassUnit.LITRE);
+
+    assertTrue(expected.isInRange(actual,0.01));
+  }
+
+  @Test
+  void shouldAddOneGallonWithLitreAndGiveInLitre() {
+    Mass oneGallon = new Mass(1,MassUnit.GALLON);
+    Mass oneLiter = new Mass(1, MassUnit.LITRE);
+
+    Mass actual = oneLiter.add(oneGallon);
+    Mass expected = new Mass(4.78, MassUnit.LITRE);
+
+    assertTrue(expected.isInRange(actual,0.01));
+  }
 }
