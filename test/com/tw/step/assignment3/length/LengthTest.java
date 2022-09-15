@@ -44,4 +44,15 @@ class LengthTest {
     Length oneInch = new Length(1, LengthUnit.INCH);
     assertEquals(oneInch.add(oneInch), new Length(2, LengthUnit.INCH));
   }
+
+  @Test
+  void shouldAddMMAndCMAndGiveInches() {
+    Length twoCM = new Length(2,LengthUnit.CM);
+    Length fiveMM = new Length(5,LengthUnit.MM);
+
+    Length actual = twoCM.add(fiveMM);
+    Length expected = new Length(1, LengthUnit.INCH);
+
+    assertTrue(actual.isInRange(expected,0.1));
+  }
 }

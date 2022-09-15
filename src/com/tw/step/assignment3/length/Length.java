@@ -33,8 +33,21 @@ public class Length {
     return Math.abs(this.quantity - anotherLength.quantity) <= delta;
   }
 
-  public Length add(Length anotherLength){
-    return new Length(this.quantity + anotherLength.quantity, this.unit);
+  public Length add(Length anotherLength) {
+    Length lengthInCurrentUnit = this.convert(anotherLength);
+
+    Length aggregatedLength = new Length(this.quantity + lengthInCurrentUnit.quantity, this.unit);
+    Length inch = new Length(1,LengthUnit.INCH);
+
+    return inch.convert(aggregatedLength);
+  }
+
+  @Override
+  public String toString() {
+    return "Length{" +
+        "quantity=" + quantity +
+        ", unit=" + unit +
+        '}';
   }
 
   @Override
