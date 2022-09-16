@@ -29,9 +29,31 @@ public class ParkingLot {
     }
 
     this.cars.add(car);
+    this.sendNecessaryNotifications();
+  }
+
+  private void sendNecessaryNotifications() {
     if (this.isFull()) {
       notifier.notify(Notification.MAX_CAPACITY);
+      return;
     }
+
+    if (this.isEightyPercentFull()) {
+      notifier.notify(Notification.EIGHTY_PERCENT_FULL);
+      return;
+    }
+
+    if (this.isEightyPercentEmpty()) {
+      notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS);
+    }
+  }
+
+  private boolean isEightyPercentEmpty() {
+    return (double) this.cars.size() / size <= 0.2;
+  }
+
+  private boolean isEightyPercentFull() {
+    return  (double) this.cars.size()/size >= 0.8;
   }
 
   public boolean contains(Car car) {
