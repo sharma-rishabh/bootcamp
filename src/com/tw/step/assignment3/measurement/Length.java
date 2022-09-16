@@ -18,7 +18,7 @@ public class Length {
     return new Length(quantity, unit);
   }
 
-  public Length convertTo(LengthUnit anotherUnit) { // unit
+  public Length convertTo(LengthUnit anotherUnit) {
     double ratio = this.unit.ratio(anotherUnit);
     double equivalentQuantity = this.quantity * ratio;
 
