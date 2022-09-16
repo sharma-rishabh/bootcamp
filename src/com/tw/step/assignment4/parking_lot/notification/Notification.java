@@ -1,4 +1,4 @@
-package com.tw.step.assignment4.parking;
+package com.tw.step.assignment4.parking_lot.notification;
 
 public enum Notification {
   MAX_CAPACITY,

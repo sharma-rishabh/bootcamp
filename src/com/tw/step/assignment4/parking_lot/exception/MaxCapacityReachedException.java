@@ -1,4 +1,4 @@
-package com.tw.step.assignment4.parking.exception;
+package com.tw.step.assignment4.parking_lot.exception;
 
 public class MaxCapacityReachedException extends Throwable {
   public MaxCapacityReachedException() {

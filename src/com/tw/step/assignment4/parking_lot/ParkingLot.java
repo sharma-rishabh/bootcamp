@@ -1,4 +1,7 @@
-package com.tw.step.assignment4.parking;
+package com.tw.step.assignment4.parking_lot;
+
+import com.tw.step.assignment4.parking_lot.notification.Notification;
+import com.tw.step.assignment4.parking_lot.notification.Notifier;
 
 import java.util.ArrayList;
 
@@ -55,5 +58,9 @@ public class ParkingLot {
 
   public boolean isFull() {
     return this.cars.size() == this.size;
+  }
+
+  public boolean isSameLot(int lotId) {
+    return this.id == lotId;
   }
 }

@@ -1,6 +1,8 @@
-package com.tw.step.assignment4.parking;
+package com.tw.step.assignment4.parking_lot;
 
-import com.tw.step.assignment4.parking.exception.MaxCapacityReachedException;
+import com.tw.step.assignment4.parking_lot.exception.MaxCapacityReachedException;
+import com.tw.step.assignment4.parking_lot.notification.Notifiable;
+import com.tw.step.assignment4.parking_lot.notification.Notification;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,9 +29,20 @@ public class ParkingLotAttendant implements Notifiable {
     parkingLot.add(car);
   }
 
+  private void promoteParkingLot(int parkingLotId) {
+    List<ParkingLot> collect = this.parkingLots.stream()
+        .filter(parkingLot -> parkingLot.isSameLot(parkingLotId))
+        .collect(Collectors.toList());
+
+    ParkingLot parkingLotToPromote = collect.get(0);
+    parkingLots.remove(parkingLotToPromote);
+    parkingLots.add(0, parkingLotToPromote);
+  }
 
   @Override
   public void receive(Notification notification, int parkingLotId) {
-
+    if (notification == Notification.AT_TWENTY_PERCENT_OR_LESS) {
+      this.promoteParkingLot(parkingLotId);
+    }
   }
 }

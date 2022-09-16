@@ -1,4 +1,7 @@
-package com.tw.step.assignment4.parking;
+package com.tw.step.assignment4.parking_lot.notification;
+
+import com.tw.step.assignment4.parking_lot.notification.Notifiable;
+import com.tw.step.assignment4.parking_lot.notification.Notification;
 
 import java.util.ArrayList;
 import java.util.HashMap;

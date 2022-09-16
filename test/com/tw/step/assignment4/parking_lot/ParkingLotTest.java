@@ -1,6 +1,9 @@
-package com.tw.step.assignment4.parking;
+package com.tw.step.assignment4.parking_lot;
 
-import com.tw.step.assignment4.parking.exception.InvalidParkingLotSizeException;
+import com.tw.step.assignment4.parking_lot.exception.InvalidParkingLotSizeException;
+import com.tw.step.assignment4.parking_lot.notification.Notifiable;
+import com.tw.step.assignment4.parking_lot.notification.Notification;
+import com.tw.step.assignment4.parking_lot.notification.Notifier;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
