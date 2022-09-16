@@ -12,7 +12,7 @@ class ParkingLotTest {
 
   @Test
   void shouldThrowInvalidParkingLotSizeExceptionIfSizeIsLessThanOne() {
-    assertThrows(InvalidParkingLotSizeException.class,()->ParkingLots.createParkingLot(-1, new Notifier()));
+    assertThrows(InvalidParkingLotSizeException.class, () -> ParkingLots.createParkingLot(-1, new Notifier()));
   }
 
   @Test
@@ -39,7 +39,7 @@ class ParkingLotTest {
 
   @Test
   void shouldTellIfParkingLotIsFull() {
-    ParkingLot parkingLot = ParkingLots.createParkingLot(2 , new Notifier());
+    ParkingLot parkingLot = ParkingLots.createParkingLot(2, new Notifier());
     Car firstCar = new Car();
     Car secondCar = new Car();
 
@@ -61,7 +61,7 @@ class ParkingLotTest {
     ParkingLot parkingLot = ParkingLots.createParkingLot(1, notifier);
     parkingLot.add(new Car());
 
-    assertEquals(receivedNotification[0],Notification.MAX_CAPACITY);
+    assertEquals(receivedNotification[0], Notification.MAX_CAPACITY);
   }
 
   @Test
@@ -78,8 +78,9 @@ class ParkingLotTest {
     parkingLot.add(new Car());
     parkingLot.add(new Car());
 
-    assertEquals(receivedNotification[0],Notification.EIGHTY_PERCENT_FULL);
+    assertEquals(receivedNotification[0], Notification.EIGHTY_PERCENT_FULL);
   }
+
   @Test
   void shouldNotifyParkingLotIsEightyEmptyAfterAddingACar() {
     final Notification[] receivedNotification = new Notification[1];
@@ -91,7 +92,7 @@ class ParkingLotTest {
     ParkingLot parkingLot = ParkingLots.createParkingLot(5, notifier);
     parkingLot.add(new Car());
 
-    assertEquals(receivedNotification[0],Notification.AT_TWENTY_PERCENT_OR_LESS);
+    assertEquals(receivedNotification[0], Notification.AT_TWENTY_PERCENT_OR_LESS);
   }
 
   @Test
@@ -106,7 +107,7 @@ class ParkingLotTest {
     parkingLot.add(new Car());
     parkingLot.add(new Car());
 
-    assertEquals(receivedNotification[0],Notification.ALREADY_FULL);
+    assertEquals(receivedNotification[0], Notification.ALREADY_FULL);
   }
 
 }

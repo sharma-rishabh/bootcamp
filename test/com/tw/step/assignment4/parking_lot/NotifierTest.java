@@ -20,5 +20,4 @@ class NotifierTest {
 
     assertEquals(receivedNotification[0],Notification.MAX_CAPACITY);
   }
-
 }

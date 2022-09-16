@@ -10,8 +10,10 @@ public class ParkingLots {
     if (size <= 0) {
       throw new InvalidParkingLotSizeException(size);
     }
+
     ParkingLot parkingLot = new ParkingLot(id, size, notifier);
-    id++;
+    id = id + 1;
+
     return parkingLot;
   }
 }

@@ -11,7 +11,7 @@ public class ParkingLot {
   private final int size;
   private final Notifier notifier;
 
-  ParkingLot(int id,int size, Notifier notifier) {
+  ParkingLot(int id, int size, Notifier notifier) {
     this.id = id;
     this.size = size;
     this.notifier = notifier;
@@ -20,7 +20,7 @@ public class ParkingLot {
 
   public void add(Car car) {
     if (this.isFull()) {
-      notifier.notify(Notification.ALREADY_FULL,this.id);
+      notifier.notify(Notification.ALREADY_FULL, this.id);
       return;
     }
 
@@ -30,17 +30,17 @@ public class ParkingLot {
 
   private void sendNecessaryNotifications() {
     if (this.isFull()) {
-      notifier.notify(Notification.MAX_CAPACITY,this.id);
+      notifier.notify(Notification.MAX_CAPACITY, this.id);
       return;
     }
 
     if (this.isEightyPercentFull()) {
-      notifier.notify(Notification.EIGHTY_PERCENT_FULL,this.id);
+      notifier.notify(Notification.EIGHTY_PERCENT_FULL, this.id);
       return;
     }
 
     if (this.isEightyPercentEmpty()) {
-      notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS,this.id);
+      notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS, this.id);
     }
   }
 

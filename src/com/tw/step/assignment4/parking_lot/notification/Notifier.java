@@ -1,8 +1,5 @@
 package com.tw.step.assignment4.parking_lot.notification;
 
-import com.tw.step.assignment4.parking_lot.notification.Notifiable;
-import com.tw.step.assignment4.parking_lot.notification.Notification;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,8 +9,12 @@ public class Notifier {
   public Notifier() {
   }
 
+  private boolean isRegistered(Notification notification) {
+    return notificationMap.containsKey(notification);
+  }
+
   public void subscribe(Notifiable receiver, Notification notification) {
-    if (notificationMap.containsKey(notification)) {
+    if (isRegistered(notification)) {
       ArrayList<Notifiable> receivers = notificationMap.get(notification);
       receivers.add(receiver);
       return;
@@ -25,11 +26,11 @@ public class Notifier {
   }
 
   public void notify(Notification notification, int id) {
-    if (!notificationMap.containsKey(notification)) {
+    if (!isRegistered(notification)) {
       return;
     }
 
     ArrayList<Notifiable> receivers = notificationMap.get(notification);
-    receivers.forEach((receiver)->receiver.receive(notification,id));
+    receivers.forEach((receiver) -> receiver.receive(notification, id));
   }
 }
