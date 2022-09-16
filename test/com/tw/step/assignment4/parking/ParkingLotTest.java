@@ -7,14 +7,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParkingLotTest {
 
   @Test
+  void shouldThrowInvalidParkingLotSizeExceptionIfSizeIsLessThanOne() {
+  }
+
+  @Test
   void shouldAddACarToParkingLot() {
-    ParkingLot parkingLot = new ParkingLot(1);
+    ParkingLot parkingLot = ParkingLot.createParkingLot(1);
     assertTrue(parkingLot.add(new Car()));
   }
 
   @Test
   void shouldTellIfCarIsInParkingLot() {
-    ParkingLot parkingLot = new ParkingLot(2);
+    ParkingLot parkingLot = ParkingLot.createParkingLot(2);
     Car firstCar = new Car();
     Car secondCar = new Car();
 
@@ -26,7 +30,7 @@ class ParkingLotTest {
 
   @Test
   void shouldTellIfParkingLotIsFull() {
-    ParkingLot parkingLot = new ParkingLot(2);
+    ParkingLot parkingLot = ParkingLot.createParkingLot(2);
     Car firstCar = new Car();
     Car secondCar = new Car();
 
