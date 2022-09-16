@@ -14,14 +14,20 @@ public class ParkingLot {
   }
 
   public static ParkingLot createParkingLot(int size) {
-    if (size<=0) {
+    if (size <= 0) {
       throw new InvalidParkingLotSizeException(size);
     }
     return new ParkingLot(size);
   }
 
-  public boolean add(Car car) {
-    return this.cars.add(car);
+  public ParkingNotification add(Car car) {
+    if (this.isFull()) {
+      return new ParkingNotification(false,true);
+    }
+
+    this.cars.add(car);
+    boolean isFull = this.isFull();
+    return new ParkingNotification(true,isFull);
   }
 
   public boolean contains(Car car) {

@@ -15,7 +15,11 @@ class ParkingLotTest {
   @Test
   void shouldAddACarToParkingLot() {
     ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-    assertTrue(parkingLot.add(new Car()));
+
+    ParkingNotification expected = new ParkingNotification(true, true);
+    ParkingNotification actual = parkingLot.add(new Car());
+
+    assertEquals(expected,actual);
   }
 
   @Test
