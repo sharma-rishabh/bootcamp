@@ -9,22 +9,22 @@ class ParkingLotTest {
 
   @Test
   void shouldThrowInvalidParkingLotSizeExceptionIfSizeIsLessThanOne() {
-    assertThrows(InvalidParkingLotSizeException.class,()->ParkingLot.createParkingLot(-1));
+    assertThrows(InvalidParkingLotSizeException.class,()->ParkingLot.createParkingLot(-1, new Notifier()));
   }
 
   @Test
   void shouldAddACarToParkingLot() {
-    ParkingLot parkingLot = ParkingLot.createParkingLot(1);
+    ParkingLot parkingLot = ParkingLot.createParkingLot(1, new Notifier());
+    Car car = new Car();
 
-    ParkingNotification expected = new ParkingNotification(true, true);
-    ParkingNotification actual = parkingLot.add(new Car());
+    parkingLot.add(car);
 
-    assertEquals(expected,actual);
+    assertTrue(parkingLot.contains(car));
   }
 
   @Test
   void shouldTellIfCarIsInParkingLot() {
-    ParkingLot parkingLot = ParkingLot.createParkingLot(2);
+    ParkingLot parkingLot = ParkingLot.createParkingLot(2, new Notifier());
     Car firstCar = new Car();
     Car secondCar = new Car();
 
@@ -36,7 +36,7 @@ class ParkingLotTest {
 
   @Test
   void shouldTellIfParkingLotIsFull() {
-    ParkingLot parkingLot = ParkingLot.createParkingLot(2);
+    ParkingLot parkingLot = ParkingLot.createParkingLot(2 , new Notifier());
     Car firstCar = new Car();
     Car secondCar = new Car();
 
@@ -46,4 +46,34 @@ class ParkingLotTest {
     parkingLot.add(secondCar);
     assertTrue(parkingLot.isFull());
   }
+
+  @Test
+  void shouldNotifyParkingLotIsFullAfterAddingACar() {
+    final Notification[] receivedNotification = new Notification[1];
+
+    Notifier notifier = new Notifier();
+    Notifiable notifiable = notification -> receivedNotification[0] = notification;
+    notifier.add(notifiable, Notification.MAX_CAPACITY);
+
+    ParkingLot parkingLot = ParkingLot.createParkingLot(1, notifier);
+    parkingLot.add(new Car());
+
+    assertEquals(receivedNotification[0],Notification.MAX_CAPACITY);
+  }
+
+  @Test
+  void shouldNotifyParkingLotIsFullBeforeAddingACar() {
+    final Notification[] receivedNotification = new Notification[1];
+
+    Notifier notifier = new Notifier();
+    Notifiable notifiable = notification -> receivedNotification[0] = notification;
+    notifier.add(notifiable, Notification.ALREADY_FULL);
+
+    ParkingLot parkingLot = ParkingLot.createParkingLot(1, notifier);
+    parkingLot.add(new Car());
+    parkingLot.add(new Car());
+
+    assertEquals(receivedNotification[0],Notification.ALREADY_FULL);
+  }
+
 }

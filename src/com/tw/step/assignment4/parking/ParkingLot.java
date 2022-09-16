@@ -7,27 +7,31 @@ import java.util.ArrayList;
 public class ParkingLot {
   private final ArrayList<Car> cars;
   private final int size;
+  private final Notifier notifier;
 
-  private ParkingLot(int size) {
+  private ParkingLot(int size, Notifier notifier) {
     this.size = size;
-    this.cars = new ArrayList<Car>();
+    this.notifier = notifier;
+    this.cars = new ArrayList<>();
   }
 
-  public static ParkingLot createParkingLot(int size) {
+  public static ParkingLot createParkingLot(int size, Notifier notifier) {
     if (size <= 0) {
       throw new InvalidParkingLotSizeException(size);
     }
-    return new ParkingLot(size);
+    return new ParkingLot(size, notifier);
   }
 
-  public ParkingNotification add(Car car) {
+  public void add(Car car) {
     if (this.isFull()) {
-      return new ParkingNotification(false,true);
+      notifier.notify(Notification.ALREADY_FULL);
+      return;
     }
 
     this.cars.add(car);
-    boolean isFull = this.isFull();
-    return new ParkingNotification(true,isFull);
+    if (this.isFull()) {
+      notifier.notify(Notification.MAX_CAPACITY);
+    }
   }
 
   public boolean contains(Car car) {
