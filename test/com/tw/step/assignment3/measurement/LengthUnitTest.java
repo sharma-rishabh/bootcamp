@@ -1,4 +1,4 @@
-package com.tw.step.assignment3.length;
+package com.tw.step.assignment3.measurement;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,4 +10,5 @@ class LengthUnitTest {
   void shouldTellRatioOfKmAndMeter() {
     assertEquals(12, LengthUnit.FEET.ratio(LengthUnit.INCH));
   }
+
 }

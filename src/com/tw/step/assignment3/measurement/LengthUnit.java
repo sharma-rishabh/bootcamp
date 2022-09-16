@@ -1,4 +1,4 @@
-package com.tw.step.assignment3.length;
+package com.tw.step.assignment3.measurement;
 
 public enum LengthUnit {
   INCH(0.0000025),
@@ -15,5 +15,9 @@ public enum LengthUnit {
 
   public double ratio(LengthUnit anotherLengthUnit) {
     return this.lengthInKm/ anotherLengthUnit.lengthInKm;
+  }
+
+  public static LengthUnit getStanardOutputUnit() {
+    return INCH;
   }
 }
