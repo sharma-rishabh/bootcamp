@@ -1,5 +1,6 @@
 package com.tw.step.assignment4.parking;
 
+import com.tw.step.assignment4.parking.exception.InvalidParkingLotSizeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,6 +9,7 @@ class ParkingLotTest {
 
   @Test
   void shouldThrowInvalidParkingLotSizeExceptionIfSizeIsLessThanOne() {
+    assertThrows(InvalidParkingLotSizeException.class,()->ParkingLot.createParkingLot(-1));
   }
 
   @Test
