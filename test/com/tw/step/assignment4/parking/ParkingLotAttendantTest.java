@@ -9,7 +9,7 @@ class ParkingLotAttendantTest {
 
   @Test
   void shouldParkCarInParkingLot() throws MaxCapacityReachedException {
-    ParkingLot firstParkingLot = ParkingLot.createParkingLot(1, new Notifier());
+    ParkingLot firstParkingLot = ParkingLots.createParkingLot(1, new Notifier());
     Car car = new Car();
 
     ParkingLotAttendant parkingLotAttendant = new ParkingLotAttendant(new ParkingLot[]{firstParkingLot});
@@ -19,7 +19,7 @@ class ParkingLotAttendantTest {
 
   @Test
   void shouldThrowMaxCapacityReachedExceptionWhenNoParkingSpaceIsAvailable() throws MaxCapacityReachedException {
-    ParkingLot firstParkingLot = ParkingLot.createParkingLot(1, new Notifier());
+    ParkingLot firstParkingLot = ParkingLots.createParkingLot(1, new Notifier());
     Car car = new Car();
 
     ParkingLotAttendant parkingLotAttendant = new ParkingLotAttendant(new ParkingLot[]{firstParkingLot});

@@ -29,7 +29,7 @@ public class ParkingLotAttendant implements Notifiable {
 
 
   @Override
-  public void receive(Notification notification) {
+  public void receive(Notification notification, int parkingLotId) {
 
   }
 }

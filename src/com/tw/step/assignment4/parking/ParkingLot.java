@@ -1,30 +1,23 @@
 package com.tw.step.assignment4.parking;
 
-import com.tw.step.assignment4.parking.exception.InvalidParkingLotSizeException;
-
 import java.util.ArrayList;
 
 public class ParkingLot {
   private final ArrayList<Car> cars;
+  public int id;
   private final int size;
   private final Notifier notifier;
 
-  private ParkingLot(int size, Notifier notifier) {
+  ParkingLot(int id,int size, Notifier notifier) {
+    this.id = id;
     this.size = size;
     this.notifier = notifier;
     this.cars = new ArrayList<>();
   }
 
-  public static ParkingLot createParkingLot(int size, Notifier notifier) {
-    if (size <= 0) {
-      throw new InvalidParkingLotSizeException(size);
-    }
-    return new ParkingLot(size, notifier);
-  }
-
   public void add(Car car) {
     if (this.isFull()) {
-      notifier.notify(Notification.ALREADY_FULL);
+      notifier.notify(Notification.ALREADY_FULL,this.id);
       return;
     }
 
@@ -34,17 +27,17 @@ public class ParkingLot {
 
   private void sendNecessaryNotifications() {
     if (this.isFull()) {
-      notifier.notify(Notification.MAX_CAPACITY);
+      notifier.notify(Notification.MAX_CAPACITY,this.id);
       return;
     }
 
     if (this.isEightyPercentFull()) {
-      notifier.notify(Notification.EIGHTY_PERCENT_FULL);
+      notifier.notify(Notification.EIGHTY_PERCENT_FULL,this.id);
       return;
     }
 
     if (this.isEightyPercentEmpty()) {
-      notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS);
+      notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS,this.id);
     }
   }
 
@@ -53,7 +46,7 @@ public class ParkingLot {
   }
 
   private boolean isEightyPercentFull() {
-    return  (double) this.cars.size()/size >= 0.8;
+    return (double) this.cars.size() / size >= 0.8;
   }
 
   public boolean contains(Car car) {

@@ -9,7 +9,7 @@ public class Notifier {
   public Notifier() {
   }
 
-  public void add(Notifiable receiver, Notification notification) {
+  public void subscribe(Notifiable receiver, Notification notification) {
     if (notificationMap.containsKey(notification)) {
       ArrayList<Notifiable> receivers = notificationMap.get(notification);
       receivers.add(receiver);
@@ -21,12 +21,12 @@ public class Notifier {
     notificationMap.put(notification, receivers);
   }
 
-  public void notify(Notification notification) {
+  public void notify(Notification notification, int id) {
     if (!notificationMap.containsKey(notification)) {
       return;
     }
 
     ArrayList<Notifiable> receivers = notificationMap.get(notification);
-    receivers.forEach((receiver)->receiver.receive(notification));
+    receivers.forEach((receiver)->receiver.receive(notification,id));
   }
 }

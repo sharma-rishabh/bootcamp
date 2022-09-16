@@ -10,10 +10,10 @@ class NotifierTest {
   void shouldNotifyRegisteredNotifiables() {
     final Notification[] receivedNotification = new Notification[1];
     Notifier notifier = new Notifier();
-    Notifiable notifiable = notification -> receivedNotification[0] = notification;
+    Notifiable notifiable = (notification, id) -> receivedNotification[0] = notification;
 
-    notifier.add(notifiable,Notification.MAX_CAPACITY);
-    notifier.notify(Notification.MAX_CAPACITY);
+    notifier.subscribe(notifiable,Notification.MAX_CAPACITY);
+    notifier.notify(Notification.MAX_CAPACITY,0);
 
     assertEquals(receivedNotification[0],Notification.MAX_CAPACITY);
   }
