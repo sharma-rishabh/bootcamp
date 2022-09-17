@@ -4,39 +4,51 @@ import com.tw.step.assignment4.parking_lot.exception.MaxCapacityReachedException
 import com.tw.step.assignment4.parking_lot.notification.Notifiable;
 import com.tw.step.assignment4.parking_lot.notification.Notification;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParkingLotAttendant implements Notifiable {
+public class Attendant implements Notifiable {
 
-  private final List<ParkingLot> parkingLots;
+  private final List<ParkingLot> parkingLots = new ArrayList<>();
 
-  public ParkingLotAttendant(ParkingLot[] parkingLots) {
-    this.parkingLots = Arrays.asList(parkingLots);
+  public Attendant() {
+  }
+
+  public boolean attend(ParkingLot parkingLot) {
+    return parkingLots.add(parkingLot);
   }
 
   public void park(Car car) throws MaxCapacityReachedException {
-    List<ParkingLot> parkingLotsWithSpotsAvailable = parkingLots.stream()
-        .filter((parkingLot) -> !parkingLot.isFull())
-        .collect(Collectors.toList());
+    List<ParkingLot> vacantParkingLots = getVacantParkingLots();
 
-    if (parkingLotsWithSpotsAvailable.size() == 0) {
+    if (vacantParkingLots.size() == 0) {
       throw new MaxCapacityReachedException();
     }
 
-    ParkingLot parkingLot = parkingLotsWithSpotsAvailable.get(0);
+    ParkingLot parkingLot = vacantParkingLots.get(0);
     parkingLot.add(car);
   }
 
+  private List<ParkingLot> getVacantParkingLots() {
+    return parkingLots.stream()
+        .filter((parkingLot) -> !parkingLot.isFull())
+        .collect(Collectors.toList());
+  }
+
   private void promoteParkingLot(int parkingLotId) {
+    ParkingLot parkingLotToPromote = findParkingLot(parkingLotId);
+
+    parkingLots.remove(parkingLotToPromote);
+    parkingLots.add(0, parkingLotToPromote);
+  }
+
+  private ParkingLot findParkingLot(int parkingLotId) {
     List<ParkingLot> collect = this.parkingLots.stream()
         .filter(parkingLot -> parkingLot.isSameLot(parkingLotId))
         .collect(Collectors.toList());
 
-    ParkingLot parkingLotToPromote = collect.get(0);
-    parkingLots.remove(parkingLotToPromote);
-    parkingLots.add(0, parkingLotToPromote);
+    return collect.get(0);
   }
 
   @Override

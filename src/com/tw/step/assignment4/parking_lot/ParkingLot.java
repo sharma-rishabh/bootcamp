@@ -1,5 +1,6 @@
 package com.tw.step.assignment4.parking_lot;
 
+import com.tw.step.assignment4.parking_lot.notification.Notifiable;
 import com.tw.step.assignment4.parking_lot.notification.Notification;
 import com.tw.step.assignment4.parking_lot.notification.Notifier;
 
@@ -7,20 +8,20 @@ import java.util.ArrayList;
 
 public class ParkingLot {
   private final ArrayList<Car> cars;
+  private final Notifier notifier;
   public int id;
   private final int size;
-  private final Notifier notifier;
 
-  ParkingLot(int id, int size, Notifier notifier) {
+  ParkingLot(int id, int size) {
+    this.notifier = new Notifier();
     this.id = id;
     this.size = size;
-    this.notifier = notifier;
     this.cars = new ArrayList<>();
   }
 
   public void add(Car car) {
     if (this.isFull()) {
-      notifier.notify(Notification.ALREADY_FULL, this.id);
+      this.notifier.notify(Notification.ALREADY_FULL, this.id);
       return;
     }
 
@@ -30,17 +31,17 @@ public class ParkingLot {
 
   private void sendNecessaryNotifications() {
     if (this.isFull()) {
-      notifier.notify(Notification.MAX_CAPACITY, this.id);
+      this.notifier.notify(Notification.MAX_CAPACITY, this.id);
       return;
     }
 
     if (this.isEightyPercentFull()) {
-      notifier.notify(Notification.EIGHTY_PERCENT_FULL, this.id);
+      this.notifier.notify(Notification.EIGHTY_PERCENT_FULL, this.id);
       return;
     }
 
     if (this.isEightyPercentEmpty()) {
-      notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS, this.id);
+      this.notifier.notify(Notification.AT_TWENTY_PERCENT_OR_LESS, this.id);
     }
   }
 
@@ -62,5 +63,17 @@ public class ParkingLot {
 
   public boolean isSameLot(int lotId) {
     return this.id == lotId;
+  }
+
+  public void subscribe(Notifiable receiver, Notification notification) {
+    this.notifier.subscribe(receiver, notification);
+  }
+
+  public void notify(Notification notification, int id) {
+    this.notifier.notify(notification, id);
+  }
+
+  public void unsubscribe(Notifiable receiver, Notification notification) {
+    this.notifier.unsubscribe(receiver, notification);
   }
 }

@@ -33,4 +33,13 @@ public class Notifier {
     ArrayList<Notifiable> receivers = notificationMap.get(notification);
     receivers.forEach((receiver) -> receiver.receive(notification, id));
   }
+
+  public void unsubscribe(Notifiable receiver,Notification notification) {
+    if (!isRegistered(notification)) {
+      return;
+    }
+    ArrayList<Notifiable> receivers = notificationMap.get(notification);
+    receivers.remove(receiver);
+  }
+
 }

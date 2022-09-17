@@ -12,12 +12,12 @@ class ParkingLotTest {
 
   @Test
   void shouldThrowInvalidParkingLotSizeExceptionIfSizeIsLessThanOne() {
-    assertThrows(InvalidParkingLotSizeException.class, () -> ParkingLots.createParkingLot(-1, new Notifier()));
+    assertThrows(InvalidParkingLotSizeException.class, () -> ParkingLots.createParkingLot(-1));
   }
 
   @Test
   void shouldAddACarToParkingLot() {
-    ParkingLot parkingLot = ParkingLots.createParkingLot(1, new Notifier());
+    ParkingLot parkingLot = ParkingLots.createParkingLot(1);
     Car car = new Car();
 
     parkingLot.add(car);
@@ -27,7 +27,7 @@ class ParkingLotTest {
 
   @Test
   void shouldTellIfCarIsInParkingLot() {
-    ParkingLot parkingLot = ParkingLots.createParkingLot(2, new Notifier());
+    ParkingLot parkingLot = ParkingLots.createParkingLot(2);
     Car firstCar = new Car();
     Car secondCar = new Car();
 
@@ -39,7 +39,7 @@ class ParkingLotTest {
 
   @Test
   void shouldTellIfParkingLotIsFull() {
-    ParkingLot parkingLot = ParkingLots.createParkingLot(2, new Notifier());
+    ParkingLot parkingLot = ParkingLots.createParkingLot(2);
     Car firstCar = new Car();
     Car secondCar = new Car();
 
@@ -54,11 +54,10 @@ class ParkingLotTest {
   void shouldNotifyParkingLotIsFullAfterAddingACar() {
     final Notification[] receivedNotification = new Notification[1];
 
-    Notifier notifier = new Notifier();
     Notifiable notifiable = (notification, id) -> receivedNotification[0] = notification;
-    notifier.subscribe(notifiable, Notification.MAX_CAPACITY);
 
-    ParkingLot parkingLot = ParkingLots.createParkingLot(1, notifier);
+    ParkingLot parkingLot = ParkingLots.createParkingLot(1);
+    parkingLot.subscribe(notifiable, Notification.MAX_CAPACITY);
     parkingLot.add(new Car());
 
     assertEquals(receivedNotification[0], Notification.MAX_CAPACITY);
@@ -68,11 +67,10 @@ class ParkingLotTest {
   void shouldNotifyParkingLotIsEightyFullAfterAddingACar() {
     final Notification[] receivedNotification = new Notification[1];
 
-    Notifier notifier = new Notifier();
     Notifiable notifiable = (notification, id) -> receivedNotification[0] = notification;
-    notifier.subscribe(notifiable, Notification.EIGHTY_PERCENT_FULL);
 
-    ParkingLot parkingLot = ParkingLots.createParkingLot(5, notifier);
+    ParkingLot parkingLot = ParkingLots.createParkingLot(5);
+    parkingLot.subscribe(notifiable, Notification.EIGHTY_PERCENT_FULL);
     parkingLot.add(new Car());
     parkingLot.add(new Car());
     parkingLot.add(new Car());
@@ -85,11 +83,10 @@ class ParkingLotTest {
   void shouldNotifyParkingLotIsEightyEmptyAfterAddingACar() {
     final Notification[] receivedNotification = new Notification[1];
 
-    Notifier notifier = new Notifier();
     Notifiable notifiable = (notification, id) -> receivedNotification[0] = notification;
-    notifier.subscribe(notifiable, Notification.AT_TWENTY_PERCENT_OR_LESS);
 
-    ParkingLot parkingLot = ParkingLots.createParkingLot(5, notifier);
+    ParkingLot parkingLot = ParkingLots.createParkingLot(5);
+    parkingLot.subscribe(notifiable, Notification.AT_TWENTY_PERCENT_OR_LESS);
     parkingLot.add(new Car());
 
     assertEquals(receivedNotification[0], Notification.AT_TWENTY_PERCENT_OR_LESS);
@@ -99,11 +96,10 @@ class ParkingLotTest {
   void shouldNotifyParkingLotIsFullBeforeAddingACar() {
     final Notification[] receivedNotification = new Notification[1];
 
-    Notifier notifier = new Notifier();
     Notifiable notifiable = (notification, id) -> receivedNotification[0] = notification;
-    notifier.subscribe(notifiable, Notification.ALREADY_FULL);
 
-    ParkingLot parkingLot = ParkingLots.createParkingLot(1, notifier);
+    ParkingLot parkingLot = ParkingLots.createParkingLot(1);
+    parkingLot.subscribe(notifiable, Notification.ALREADY_FULL);
     parkingLot.add(new Car());
     parkingLot.add(new Car());
 
