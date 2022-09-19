@@ -2,6 +2,7 @@ package com.tw.step.assignment5.wizard;
 
 import com.tw.step.assignment5.wizard.exception.MaxCapacityReachedException;
 import com.tw.step.assignment5.wizard.exception.NotEnoughGreenBallException;
+import com.tw.step.assignment5.wizard.exception.YellowBallGreaterThan40PercentException;
 
 import java.util.HashSet;
 
@@ -14,13 +15,13 @@ public class Bag {
     this.magicBalls = new HashSet<>();
   }
 
-  public boolean add(MagicBall magicBall) throws MaxCapacityReachedException, NotEnoughGreenBallException {
+  public boolean add(MagicBall magicBall) throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException {
     this.validateBallAddition(magicBall);
 
     return this.magicBalls.add(magicBall);
   }
 
-  private void validateBallAddition(MagicBall magicBall) throws MaxCapacityReachedException, NotEnoughGreenBallException {
+  private void validateBallAddition(MagicBall magicBall) throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException {
     if (this.isBagFull()) {
       throw new MaxCapacityReachedException();
     }
@@ -30,6 +31,15 @@ public class Bag {
     if (magicBall.getColor() == Color.RED && !this.canAddRedBall()) {
       throw new NotEnoughGreenBallException(this.numberOfBalls(Color.GREEN));
     }
+    if (magicBall.getColor() == Color.YELLOW && !this.canAddYellowBall()) {
+      throw new YellowBallGreaterThan40PercentException();
+    }
+  }
+
+  private boolean canAddYellowBall() {
+    int sizeAfterAddition = this.magicBalls.size() + 1;
+    long yellowBallsAfterAddition = numberOfBalls(Color.YELLOW) + 1;
+    return (double) yellowBallsAfterAddition/sizeAfterAddition <= 0.4;
   }
 
 
