@@ -31,4 +31,19 @@ class BagTest {
     bag.add(new MagicBall());
     assertThrows(MaxCapacityReachedException.class,()->bag.add(new MagicBall()));
   }
+
+  @Test
+  void shouldBeAbleToHoldMaxOfThreeGreenBalls() throws MaxCapacityReachedException {
+    Bag bag = new Bag();
+    MagicBall firstBall = new MagicBall(Color.GREEN);
+    MagicBall secondBall = new MagicBall(Color.GREEN);
+    MagicBall thirdBall = new MagicBall(Color.GREEN);
+    MagicBall fourthBall = new MagicBall(Color.GREEN);
+
+    bag.add(firstBall);
+    bag.add(secondBall);
+    bag.add(thirdBall);
+
+    assertThrows(MaxCapacityReachedException.class,()-> bag.add(fourthBall));
+  }
 }
