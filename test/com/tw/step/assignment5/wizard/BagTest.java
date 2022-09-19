@@ -1,8 +1,6 @@
 package com.tw.step.assignment5.wizard;
 
-import com.tw.step.assignment5.wizard.exception.MaxCapacityReachedException;
-import com.tw.step.assignment5.wizard.exception.NotEnoughGreenBallException;
-import com.tw.step.assignment5.wizard.exception.YellowBallGreaterThan40PercentException;
+import com.tw.step.assignment5.wizard.exception.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class BagTest {
 
   @Test
-  void shouldBeAbleToAddOneBall() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException {
+  void shouldBeAbleToAddOneBall() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
     Bag bag = new Bag();
 
     assertTrue(bag.add(new MagicBall()));
   }
 
   @Test
-  void shouldThrowExceptionWhenUserTriesToAddABallInFullBag() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException {
+  void shouldThrowExceptionWhenUserTriesToAddABallInFullBag() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
     Bag bag = new Bag();
     bag.add(new MagicBall());
     bag.add(new MagicBall());
@@ -35,7 +33,7 @@ class BagTest {
   }
 
   @Test
-  void shouldBeAbleToHoldMaxOfThreeGreenBalls() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException {
+  void shouldBeAbleToHoldMaxOfThreeGreenBalls() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
     Bag bag = new Bag();
     MagicBall firstBall = new MagicBall(Color.GREEN);
     MagicBall secondBall = new MagicBall(Color.GREEN);
@@ -57,7 +55,7 @@ class BagTest {
     assertThrows(NotEnoughGreenBallException.class,()->bag.add(redBall));
   }
   @Test
-  void shouldNotAllowThreeRedBallsToBeAddedToABagWithOneGreenBall() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException {
+  void shouldNotAllowThreeRedBallsToBeAddedToABagWithOneGreenBall() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
     Bag bag = new Bag();
     MagicBall greenBall = new MagicBall(Color.GREEN);
     MagicBall firstRedBall = new MagicBall(Color.RED);
@@ -77,5 +75,27 @@ class BagTest {
     MagicBall yellowBall = new MagicBall(Color.YELLOW);
 
     assertThrows(YellowBallGreaterThan40PercentException.class,()->bag.add(yellowBall));
+  }
+
+  @Test
+  void shouldNotAllowBlueBallIfBlackBallIsAlreadyPresentInTheBag() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
+    Bag bag = new Bag();
+    MagicBall blackBall = new MagicBall(Color.BLACK);
+    MagicBall blueBall = new MagicBall(Color.BLUE);
+
+    bag.add(blackBall);
+
+    assertThrows(BagAlreadyHasBlackBallException.class,()->bag.add(blueBall));
+  }
+
+  @Test
+  void shouldNotAllowBlackBallIfBlueBallIsAlreadyPresent() throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
+    Bag bag = new Bag();
+    MagicBall blackBall = new MagicBall(Color.BLACK);
+    MagicBall blueBall = new MagicBall(Color.BLUE);
+
+    bag.add(blueBall);
+
+    assertThrows(BagAlreadyHasBlueBallException.class,()->bag.add(blackBall));
   }
 }
