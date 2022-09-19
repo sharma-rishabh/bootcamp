@@ -1,9 +1,9 @@
 package com.tw.step.assignment5.wizard.exception;
 
-public class NotEnoughGreenBallException extends Throwable {
+public class NotEnoughGreenBallsException extends BagException {
   private final long greenBalls;
 
-  public NotEnoughGreenBallException(long greenBalls) {
+  public NotEnoughGreenBallsException(long greenBalls) {
     super();
     this.greenBalls = greenBalls;
   }

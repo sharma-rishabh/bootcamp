@@ -2,77 +2,47 @@ package com.tw.step.assignment5.wizard;
 
 import com.tw.step.assignment5.wizard.exception.*;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class Bag {
-  private final HashSet<MagicBall> magicBalls;
+  private final MagicBalls magicBalls;
+  private final HashMap<Color, BallAdditionValidation> validations;
   int MAX_CAPACITY = 12;
-  int MAX_GREEN_BALLS = 3;
 
-  public Bag() {
-    this.magicBalls = new HashSet<>();
+  private Bag() {
+    this.magicBalls = new MagicBalls();
+    this.validations = new HashMap<>();
   }
 
-  public boolean add(MagicBall magicBall) throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
+  public static Bag createBag() {
+    return new Bag();
+  }
+
+  public void register(Color color, BallAdditionValidation validation) {
+    validations.put(color, validation);
+  }
+
+  public boolean add(MagicBall magicBall) throws BagException {
     this.validateBallAddition(magicBall);
 
     return this.magicBalls.add(magicBall);
   }
 
-  private void validateBallAddition(MagicBall magicBall) throws MaxCapacityReachedException, NotEnoughGreenBallException, YellowBallGreaterThan40PercentException, BagAlreadyHasBlackBallException, BagAlreadyHasBlueBallException {
+  private void validateBallAddition(MagicBall magicBall) throws BagException {
     if (this.isBagFull()) {
       throw new MaxCapacityReachedException();
     }
-    if (magicBall.getColor() == Color.GREEN && this.hasEnoughGreenBalls()) {
-      throw new MaxCapacityReachedException(Color.GREEN, this.MAX_GREEN_BALLS);
-    }
-    if (magicBall.getColor() == Color.RED && !this.canAddRedBall()) {
-      throw new NotEnoughGreenBallException(this.numberOfBalls(Color.GREEN));
-    }
-    if (magicBall.getColor() == Color.YELLOW && !this.canAddYellowBall()) {
-      throw new YellowBallGreaterThan40PercentException();
-    }
-    if (magicBall.getColor() == Color.BLUE && !this.canAddBlueBall()) {
-      throw new BagAlreadyHasBlackBallException();
-    }
-    if (magicBall.getColor() == Color.BLACK && !this.canAddBlackBall()) {
-      throw new BagAlreadyHasBlueBallException();
-    }
-  }
 
-  private boolean canAddBlackBall() {
-    return this.numberOfBalls(Color.BLUE) == 0;
-  }
+    Color currentBallColor = magicBall.getColor();
+    if (!validations.containsKey(currentBallColor)) {
+      throw new BallColorNotRegisteredException(currentBallColor);
+    }
 
-  private boolean canAddBlueBall() {
-    return this.numberOfBalls(Color.BLACK) == 0;
-  }
-
-  private boolean canAddYellowBall() {
-    int sizeAfterAddition = this.magicBalls.size() + 1;
-    long yellowBallsAfterAddition = numberOfBalls(Color.YELLOW) + 1;
-    return (double) yellowBallsAfterAddition / sizeAfterAddition <= 0.4;
-  }
-
-
-  private boolean canAddRedBall() {
-    long greenBalls = this.numberOfBalls(Color.GREEN);
-    long redBalls = this.numberOfBalls(Color.RED);
-    return redBalls + 1 <= greenBalls * 2;
+    BallAdditionValidation ballAdditionValidation = validations.get(currentBallColor);
+    ballAdditionValidation.validateBall(this.magicBalls);
   }
 
   private boolean isBagFull() {
     return magicBalls.size() == this.MAX_CAPACITY;
-  }
-
-  private boolean hasEnoughGreenBalls() {
-    long count = this.numberOfBalls(Color.GREEN);
-    return count == this.MAX_GREEN_BALLS;
-  }
-
-  private long numberOfBalls(Color color) {
-    return this.magicBalls.stream()
-        .filter((magicBall -> magicBall.getColor() == color))
-        .count();
   }
 }

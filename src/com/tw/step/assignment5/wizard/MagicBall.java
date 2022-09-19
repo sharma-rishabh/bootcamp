@@ -2,7 +2,7 @@ package com.tw.step.assignment5.wizard;
 
 public class MagicBall {
 
-  private Color color;
+  private final Color color;
 
   public MagicBall(Color color) {
     this.color = color;

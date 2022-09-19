@@ -2,7 +2,7 @@ package com.tw.step.assignment5.wizard.exception;
 
 import com.tw.step.assignment5.wizard.Color;
 
-public class MaxCapacityReachedException extends Throwable {
+public class MaxCapacityReachedException extends BagException {
   public MaxCapacityReachedException() {
     super("A bag can only hold 12 magic balls");
   }

@@ -1,6 +1,5 @@
 package com.tw.step.assignment5.wizard;
 
 public enum Color {
-  GREEN,
-  RED, YELLOW, BLUE, BLACK, WHITE
+  GREEN, RED, YELLOW, BLUE, BLACK, WHITE
 }
